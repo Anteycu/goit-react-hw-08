@@ -1,0 +1,17 @@
+.Container {
+  display: flex;
+  width: 20%;
+  background-color: brown;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 10%;
+}
+
+.Message {
+  display: flex;
+  color: wheat;
+  font-size: 20px;
+  text-align: center;
+}

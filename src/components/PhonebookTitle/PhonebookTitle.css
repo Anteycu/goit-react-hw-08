@@ -1,0 +1,13 @@
+.Title {
+  color: blueviolet;
+  font-size: 38px;
+  display: flex;
+}
+
+.TitleSlide-appear {
+  transform: translateX(-100%);
+}
+.TitleSlide-appear-active {
+  transform: translateX(0);
+  transition: transform 250ms linear;
+}

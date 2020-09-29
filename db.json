@@ -1,0 +1,14 @@
+{
+  "contacts": [
+    {
+      "text": "Batman",
+      "number": "1234567890",
+      "id": 1
+    },
+    {
+      "text": "Superman",
+      "number": "0987654321",
+      "id": 2
+    }
+  ]
+}
