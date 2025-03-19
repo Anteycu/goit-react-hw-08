@@ -1,6 +1,9 @@
-const ContactsItem = () => {
-  <div>
-    <p>Contact Item</p>
-  </div>;
+const ContactsItem = ({ name, phone }) => {
+  return (
+    <>
+      <p>{name}</p>
+      <p>{phone}</p>
+    </>
+  );
 };
 export default ContactsItem;

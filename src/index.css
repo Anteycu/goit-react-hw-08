@@ -17,8 +17,6 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 375px;
   min-height: 100vh;
 }
@@ -82,5 +80,13 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (min-width: 768px) {
+  p,
+  a,
+  input {
+    font-size: 24px;
   }
 }

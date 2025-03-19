@@ -1,0 +1,7 @@
+.searchBox {
+  margin-bottom: 30px;
+}
+
+.searchBox > input {
+  width: 100%;
+}
