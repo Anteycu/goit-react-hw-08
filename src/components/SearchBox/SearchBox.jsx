@@ -1,7 +1,9 @@
+import s from "./SearchBox.module.css";
+
 const SearchBox = () => {
   return (
-    <div>
-      <input name="name" type="string" />
+    <div className={s.searchBox}>
+      <input name="name" type="string" placeholder="Name or number" />
     </div>
   );
 };
