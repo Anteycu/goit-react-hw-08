@@ -2,8 +2,11 @@ import { Formik, Form } from "formik";
 import CustomInput from "../CustomInput/CustomInput";
 import * as Yup from "yup";
 import s from "./LoginForm.module.css";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth/slice";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -15,19 +18,22 @@ const LoginForm = () => {
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          console.log(values);
+          const { email, password } = values;
+          dispatch(login({ email, token: password }));
           setSubmitting(false);
         }, 500);
       }}
     >
       <Form className={s.loginForm}>
         <CustomInput
+          id="email"
           label="Email"
           name="email"
           type="email"
           placeholder="example@mail.com"
         />
         <CustomInput
+          id="password"
           label="Password"
           name="password"
           type="password"

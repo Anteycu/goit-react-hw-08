@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authReducer } from "./auth/slice";
-import { filtersReducer } from "./filters/slice";
+import authReducer from "./auth/slice";
+import filterReducer from "./filter/slice";
 import contactsReducer from "./contacts/slice";
 
 const AppStore = configureStore({
   reducer: {
     auth: authReducer,
     contacts: contactsReducer,
-    filters: filtersReducer,
+    filter: filterReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

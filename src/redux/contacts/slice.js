@@ -1,56 +1,41 @@
-import { createAction } from "@reduxjs/toolkit";
-
-export const addContact = createAction("contacts/add");
-export const deleteContact = createAction("contacts/delete");
-// export const updateContact = createAction("contacts/update");
-export const toggleCompleted = createAction("contacts/toggleCompleted");
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  contacts: [
-    { id: 0, text: "Learn HTML and CSS", completed: true },
-    { id: 1, text: "Get good at JavaScript", completed: true },
-    { id: 2, text: "Master React", completed: false },
-    { id: 3, text: "Discover Redux", completed: false },
-    { id: 4, text: "Build amazing apps", completed: false },
+  items: [
+    { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+    { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+    { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+    { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
   ],
 };
 
-const contactsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "contacts/add": {
-      return {
-        ...state,
-        contacts: [...state.contacts, action.payload],
-      };
-    }
+const contactsSlice = createSlice({
+  name: "contacts",
+  initialState: initialState,
+  reducers: {
+    addContact: (state, action) => {
+      state.items.push(action.payload);
+    },
+    updateContact: (state, action) => {
+      state.items.map((contact) => {
+        const { id, name, number } = action.payload;
+        if (contact.id !== id) {
+          return contact;
+        }
+        return {
+          ...contact,
+          name,
+          number,
+        };
+      });
+    },
+    deleteContact: (state, action) => {
+      state.items.filter((contacts) => contacts.id !== action.payload);
+    },
+  },
+});
 
-    case "contacts/delete": {
-      return {
-        ...state,
-        contacts: state.contacts.filter(
-          (contact) => contact.id !== action.payload
-        ),
-      };
-    }
+export const { addContact, updateContact, deleteContact } =
+  contactsSlice.actions;
 
-    case "contacts/toggleCompleted": {
-      return {
-        ...state,
-        contacts: state.contacts.map((contact) => {
-          if (contact.id !== action.payload) {
-            return contact;
-          }
-          return {
-            ...contact,
-            completed: !contact.completed,
-          };
-        }),
-      };
-    }
-
-    default:
-      return state;
-  }
-};
-
-export default contactsReducer;
+export default contactsSlice.reducer;
