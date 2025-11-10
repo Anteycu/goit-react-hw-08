@@ -4,9 +4,12 @@ import * as Yup from "yup";
 import s from "./LoginForm.module.css";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/auth/slice";
+import { useId } from "react";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const email = useId();
+  const password = useId();
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -26,14 +29,14 @@ const LoginForm = () => {
     >
       <Form className={s.loginForm}>
         <CustomInput
-          id="email"
+          id={email}
           label="Email"
           name="email"
           type="email"
           placeholder="example@mail.com"
         />
         <CustomInput
-          id="password"
+          id={password}
           label="Password"
           name="password"
           type="password"
