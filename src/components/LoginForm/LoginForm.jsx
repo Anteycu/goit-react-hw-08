@@ -3,7 +3,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import * as Yup from "yup";
 import s from "./LoginForm.module.css";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/auth/slice";
+import { login } from "../../redux/auth/operations";
 import { useId } from "react";
 
 const LoginForm = () => {
@@ -19,12 +19,15 @@ const LoginForm = () => {
           .min(6, "Must be at least 6 characters or more")
           .required("Required"),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          const { email, password } = values;
-          dispatch(login({ email, token: password }));
-          setSubmitting(false);
-        }, 500);
+      onSubmit={(
+        values
+        // , { setSubmitting }
+      ) => {
+        // setTimeout(() => {
+        const { email, password } = values;
+        dispatch(login({ email, password }));
+        // setSubmitting(false);
+        // }, 500);
       }}
     >
       <Form className={s.loginForm}>

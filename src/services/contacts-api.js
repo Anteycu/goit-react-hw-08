@@ -1,54 +1,53 @@
 import axios from "axios";
-const apiToken = import.meta.env.VITE_API_TOKEN;
 const apiUrl = import.meta.env.VITE_API_URL;
 
 axios.defaults.baseURL = apiUrl;
 
-const contacts = axios.create({
-  baseURL: apiUrl,
-  headers: { Authorization: `Bearer ${apiToken}` },
-});
+export const setAuthToken = (token) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+export const clearAuthToken = () => {
+  axios.defaults.headers.common.Authorization = "";
+};
 
 // not for all post and need for 1 patch
 // axios.defaults.headers.post["Content-Type"] = "application/json";
 
-export const register = (user) => {
-  axios.post("/auth", user);
+// Users-api
+export const signup = (user) => {
+  return axios.post("/users/signup", user);
 };
 
-// for my own backend in future
-// export const login = (user) => {
-//   axios.post("/users/login", user);
-// };
+export const signin = (user) => {
+  return axios.post("/users/login", user);
+};
 
-// export const logout = () => {
-//   axios.post("/users/logout", {
-//     header: { Authorization: `Bearer ${apiToken}` },
-//   });
-// };
+export const signout = () => {
+  return axios.post("/users/logout");
+};
 
-// export const refresh = () => {
-//   axios.get("/users/current", {
-//     header: { Authorization: `Bearer ${apiToken}` },
-//   });
-// };
+export const refresh = () => {
+  return axios.get("/users/me");
+};
 
+// Contacts-api (using tasks backend)
 export const getContacts = () => {
-  contacts.get("/notes");
+  return axios.get("/tasks");
 };
 
-export const getContact = (id) => {
-  contacts.get(`/notes/${id}`);
-};
+// export const getContact = (id) => {
+//   return axios.get(`/tasks/${id}`);
+// };
 
 export const addContact = (contact) => {
-  contacts.post("/notes", contact);
+  return axios.post("/tasks", contact);
 };
 
-export const updateContact = (contact, id) => {
-  contacts.patch(`/notes/${id}`, contact);
-};
+// export const updateContact = (contact, id) => {
+//   return axios.patch(`/notes/${id}`, contact);
+// };
 
 export const deleteContact = (id) => {
-  contacts.delete(`/notes/${id}`);
+  return axios.delete(`/tasks/${id}`);
 };

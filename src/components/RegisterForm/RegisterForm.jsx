@@ -3,7 +3,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import * as Yup from "yup";
 import s from "./RegisterForm.module.css";
 import { useDispatch } from "react-redux";
-import { register } from "../../redux/auth/slice";
+import { register } from "../../redux/auth/operations";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
