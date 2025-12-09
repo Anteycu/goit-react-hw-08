@@ -13,6 +13,9 @@ const contactsSlice = createSlice({
   name: "contacts",
   initialState: initialState,
   reducers: {
+    fulfilledGetContacts: (state, action) => {
+state.items.push(action.payload);
+    },
     addContact: (state, action) => {
       state.items.push(action.payload);
     },
