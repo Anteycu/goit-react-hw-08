@@ -6,6 +6,6 @@ export const fetchContacts = () => async (dispatch) => {
     const res = await getContacts();
     dispatch(fulfilledGetContacts(res.data));
   } catch (err) {
-    dispatch(console.log(err));
+    console.error(err);
   }
 };
