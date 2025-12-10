@@ -11,9 +11,6 @@ export const clearAuthToken = () => {
   axios.defaults.headers.common.Authorization = "";
 };
 
-// not for all post and need for 1 patch
-// axios.defaults.headers.post["Content-Type"] = "application/json";
-
 // Users-api
 export const signup = (user) => {
   return axios.post("/users/signup", user);
