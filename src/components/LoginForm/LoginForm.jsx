@@ -24,13 +24,13 @@ const LoginForm = () => {
         try {
           await dispatch(login({ email, password }));
         } catch (err) {
-          console.log("Login failed:", err);
+          console.error("Login failed:", err);
         } finally {
           setSubmitting(false);
         }
       }}
     >
-      {(formik) => (
+      {({ isSubmitting }) => (
         <Form className={s.loginForm}>
           <CustomInput
             id={email}
@@ -46,8 +46,8 @@ const LoginForm = () => {
             type="password"
             placeholder="password"
           />
-          <button type="submit" disabled={formik.isSubmitting}>
-            Submit
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </Form>
       )}

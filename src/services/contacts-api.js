@@ -25,26 +25,28 @@ export const signout = () => {
 };
 
 export const refresh = () => {
-  return axios.get("/users/me");
+  return axios.get("/users/current");
 };
 
-// Contacts-api (using tasks backend)
+// Contacts-api
 export const getContacts = () => {
-  return axios.get("/tasks");
+  return axios.get("/contacts");
 };
 
 // export const getContact = (id) => {
-//   return axios.get(`/tasks/${id}`);
+//   return axios.get(`/contacts/${id}`);
 // };
 
 export const addContact = (contact) => {
-  return axios.post("/tasks", contact);
+  return axios.post("/contacts", contact);
 };
 
-// export const updateContact = (contact, id) => {
-//   return axios.patch(`/notes/${id}`, contact);
-// };
+export const updateContact = (contact, id) => {
+  return axios.patch(`/contacts/${id}`, contact);
+};
 
 export const deleteContact = (id) => {
-  return axios.delete(`/tasks/${id}`);
+  return axios.delete(`/contacts/${id}`);
 };
+
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTNhYzRlMTEwYWFkMjA1ZjJkZDc0YzUiLCJpYXQiOjE3NjU0NTkxNjl9.e4b_AQmi0TpCneypPjI3NZnFrYh0i3p8xuGh50TnPEM"

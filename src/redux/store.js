@@ -9,7 +9,7 @@ const AppStore = configureStore({
     contacts: contactsReducer,
     filter: filterReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export default AppStore;

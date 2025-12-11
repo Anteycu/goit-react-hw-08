@@ -19,38 +19,44 @@ const RegisterForm = () => {
           .min(6, "Must be 6 characters or more")
           .required("Required"),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          const { password, ...credentials } = values;
-          dispatch(register({ user: credentials, token: password }));
+      onSubmit={async (values, { setSubmitting }) => {
+        try {
+          await dispatch(register(values));
+        } catch (err) {
+          console.error("Signin failed:", err);
+        } finally {
           setSubmitting(false);
-        }, 400);
+        }
       }}
     >
-      <Form className={s.regForm}>
-        <CustomInput
-          id="name"
-          label="Name"
-          name="name"
-          type="text"
-          placeholder="John Doe"
-        />
-        <CustomInput
-          id="email"
-          label="Email"
-          name="email"
-          type="email"
-          placeholder="example@mail.com"
-        />
-        <CustomInput
-          id="password"
-          label="Password"
-          name="password"
-          type="password"
-          placeholder="password"
-        />
-        <button type="submit">Submit</button>
-      </Form>
+      {({ isSubmitting }) => (
+        <Form className={s.regForm}>
+          <CustomInput
+            id="name"
+            label="Name"
+            name="name"
+            type="text"
+            placeholder="John Doe"
+          />
+          <CustomInput
+            id="email"
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="example@mail.com"
+          />
+          <CustomInput
+            id="password"
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="password"
+          />
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 };
