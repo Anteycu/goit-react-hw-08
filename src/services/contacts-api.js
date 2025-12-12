@@ -48,5 +48,3 @@ export const updateContact = (contact, id) => {
 export const deleteContact = (id) => {
   return axios.delete(`/contacts/${id}`);
 };
-
-// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTNhYzRlMTEwYWFkMjA1ZjJkZDc0YzUiLCJpYXQiOjE3NjU0NTkxNjl9.e4b_AQmi0TpCneypPjI3NZnFrYh0i3p8xuGh50TnPEM"
