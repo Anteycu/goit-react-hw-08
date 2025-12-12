@@ -3,7 +3,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import * as Yup from "yup";
 import s from "./ContactForm.module.css";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contacts/slice";
+import { postContact } from "../../redux/contacts/operations";
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -20,30 +20,38 @@ const ContactForm = () => {
           .min(3, "Must have 3 characters or more")
           .required(),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          dispatch(addContact({ id: crypto.randomUUID(), ...values }));
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
+        try {
+          await dispatch(postContact(values));
+          resetForm();
+        } catch (err) {
+          console.error(err);
+        } finally {
           setSubmitting(false);
-        }, 500);
+        }
       }}
     >
-      <Form className={s.contactForm}>
-        <CustomInput
-          id="name"
-          label="Name"
-          name="name"
-          type="text"
-          placeholder="John Doe"
-        />
-        <CustomInput
-          id="number"
-          label="Phone number"
-          name="number"
-          type="tel"
-          placeholder="1-234-567"
-        />
-        <button type="submit">Add Contact</button>
-      </Form>
+      {({ isSubmitting }) => (
+        <Form className={s.contactForm}>
+          <CustomInput
+            id="name"
+            label="Name"
+            name="name"
+            type="text"
+            placeholder="John Doe"
+          />
+          <CustomInput
+            id="number"
+            label="Phone number"
+            name="number"
+            type="tel"
+            placeholder="1-234-567"
+          />
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Adding contact" : "Add contact"}
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 };

@@ -1,5 +1,15 @@
-import { addContact, getContacts } from "../../services/contacts-api";
-import { fulfilledAddContact, fulfilledGetContacts } from "./slice";
+import {
+  addContact,
+  deleteContact,
+  getContacts,
+  updateContact,
+} from "../../services/contacts-api";
+import {
+  fulfilledAddContact,
+  fulfilledDeleteContact,
+  fulfilledGetContacts,
+  fulfilledUpdateContact,
+} from "./slice";
 
 export const fetchContacts = () => async (dispatch) => {
   try {
@@ -10,10 +20,31 @@ export const fetchContacts = () => async (dispatch) => {
   }
 };
 
-export const postContact = (contacts) => async (dispatch) => {
+export const postContact = (contact) => async (dispatch) => {
   try {
-    await addContact(contacts);
-    dispatch(fulfilledAddContact());
+    const res = await addContact(contact);
+    dispatch(fulfilledAddContact(res.data));
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const patchContact = (contact, id) => async (dispatch) => {
+  try {
+    const res = await updateContact(contact, id);
+    dispatch(fulfilledUpdateContact(res.data));
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const delContact = (id) => async (dispatch) => {
+  try {
+    const res = await deleteContact(id);
+    console.log(res);
+    dispatch(fulfilledDeleteContact(id));
   } catch (err) {
     console.error(err);
   }
