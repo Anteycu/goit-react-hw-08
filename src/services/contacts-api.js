@@ -24,7 +24,7 @@ export const signout = () => {
   return axios.post("/users/logout");
 };
 
-export const refresh = () => {
+export const current = () => {
   return axios.get("/users/current");
 };
 
