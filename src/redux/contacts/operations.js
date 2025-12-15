@@ -5,11 +5,6 @@ import {
   getContacts,
   updateContact,
 } from "../../services/contacts-api";
-import {
-  fulfilledAddContact,
-  fulfilledDeleteContact,
-  fulfilledUpdateContact,
-} from "./slice";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
@@ -17,39 +12,45 @@ export const fetchContacts = createAsyncThunk(
     try {
       const res = await getContacts();
       return res.data;
-      // dispatch(fulfilledGetContacts(res.data));
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-export const postContact = (contact) => async (dispatch) => {
-  try {
-    const res = await addContact(contact);
-    dispatch(fulfilledAddContact(res.data));
-  } catch (err) {
-    console.error(err);
-    throw err;
+export const postContact = createAsyncThunk(
+  "contacts/postContact",
+  async (contact, thunkAPI) => {
+    try {
+      const res = await addContact(contact);
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
-};
+);
 
-export const patchContact = (contact, id) => async (dispatch) => {
-  try {
-    const res = await updateContact(contact, id);
-    dispatch(fulfilledUpdateContact(res.data));
-  } catch (err) {
-    console.error(err);
-    throw err;
+export const patchContact = createAsyncThunk(
+  "contacts/patchContact",
+  async ({ contact, id }, thunkAPI) => {
+    try {
+      const res = await updateContact(contact, id);
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
-};
+);
 
-export const delContact = (id) => async (dispatch) => {
-  try {
-    const res = await deleteContact(id);
-    console.log(res);
-    dispatch(fulfilledDeleteContact(id));
-  } catch (err) {
-    console.error(err);
+export const delContact = createAsyncThunk(
+  "contacts/delContact",
+  async (id, thunkAPI) => {
+    try {
+      const res = await deleteContact(id);
+      console.log(res);
+      return id;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
-};
+);
