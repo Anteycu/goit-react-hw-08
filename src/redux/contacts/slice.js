@@ -14,12 +14,12 @@ const contactsSlice = createSlice({
   initialState: initialState,
   reducers: {
     fulfilledGetContacts: (state, action) => {
-state.items.push(action.payload);
+      state.items.push(...action.payload);
     },
-    addContact: (state, action) => {
+    fulfilledAddContact: (state, action) => {
       state.items.push(action.payload);
     },
-    updateContact: (state, action) => {
+    fulfilledUpdateContact: (state, action) => {
       state.items.map((contact) => {
         const { id, name, number } = action.payload;
         if (contact.id !== id) {
@@ -32,13 +32,17 @@ state.items.push(action.payload);
         };
       });
     },
-    deleteContact: (state, action) => {
+    fulfilledDeleteContact: (state, action) => {
       state.items.filter((contacts) => contacts.id !== action.payload);
     },
   },
 });
 
-export const { addContact, updateContact, deleteContact } =
-  contactsSlice.actions;
+export const {
+  fulfilledGetContacts,
+  fulfilledAddContact,
+  fulfilledUpdateContact,
+  fulfilledDeleteContact,
+} = contactsSlice.actions;
 
 export default contactsSlice.reducer;

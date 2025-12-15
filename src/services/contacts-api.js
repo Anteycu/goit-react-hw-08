@@ -11,9 +11,6 @@ export const clearAuthToken = () => {
   axios.defaults.headers.common.Authorization = "";
 };
 
-// not for all post and need for 1 patch
-// axios.defaults.headers.post["Content-Type"] = "application/json";
-
 // Users-api
 export const signup = (user) => {
   return axios.post("/users/signup", user);
@@ -28,26 +25,26 @@ export const signout = () => {
 };
 
 export const refresh = () => {
-  return axios.get("/users/me");
+  return axios.get("/users/current");
 };
 
-// Contacts-api (using tasks backend)
+// Contacts-api
 export const getContacts = () => {
-  return axios.get("/tasks");
+  return axios.get("/contacts");
 };
 
 // export const getContact = (id) => {
-//   return axios.get(`/tasks/${id}`);
+//   return axios.get(`/contacts/${id}`);
 // };
 
 export const addContact = (contact) => {
-  return axios.post("/tasks", contact);
+  return axios.post("/contacts", contact);
 };
 
-// export const updateContact = (contact, id) => {
-//   return axios.patch(`/notes/${id}`, contact);
-// };
+export const updateContact = (contact, id) => {
+  return axios.patch(`/contacts/${id}`, contact);
+};
 
 export const deleteContact = (id) => {
-  return axios.delete(`/tasks/${id}`);
+  return axios.delete(`/contacts/${id}`);
 };

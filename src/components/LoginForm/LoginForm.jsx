@@ -19,34 +19,38 @@ const LoginForm = () => {
           .min(6, "Must be at least 6 characters or more")
           .required("Required"),
       })}
-      onSubmit={(
-        values
-        // , { setSubmitting }
-      ) => {
-        // setTimeout(() => {
+      onSubmit={async (values, { setSubmitting }) => {
         const { email, password } = values;
-        dispatch(login({ email, password }));
-        // setSubmitting(false);
-        // }, 500);
+        try {
+          await dispatch(login({ email, password }));
+        } catch (err) {
+          console.error("Login failed:", err);
+        } finally {
+          setSubmitting(false);
+        }
       }}
     >
-      <Form className={s.loginForm}>
-        <CustomInput
-          id={email}
-          label="Email"
-          name="email"
-          type="email"
-          placeholder="example@mail.com"
-        />
-        <CustomInput
-          id={password}
-          label="Password"
-          name="password"
-          type="password"
-          placeholder="password"
-        />
-        <button type="submit">Submit</button>
-      </Form>
+      {({ isSubmitting }) => (
+        <Form className={s.loginForm}>
+          <CustomInput
+            id={email}
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="example@mail.com"
+          />
+          <CustomInput
+            id={password}
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="password"
+          />
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 };

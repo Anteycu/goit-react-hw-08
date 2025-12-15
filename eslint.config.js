@@ -34,6 +34,8 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
+      // "no-floating-promises": "off",
+      // "@typescript-eslint/no-floating-promises": "off",
     },
   },
 ];
