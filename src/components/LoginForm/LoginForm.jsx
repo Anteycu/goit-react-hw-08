@@ -23,8 +23,8 @@ const LoginForm = () => {
         const { email, password } = values;
         try {
           await dispatch(login({ email, password }));
-        } catch (err) {
-          console.error("Login failed:", err);
+        } catch (e) {
+          console.error("Login failed:", e);
         } finally {
           setSubmitting(false);
         }

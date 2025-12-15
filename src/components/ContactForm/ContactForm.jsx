@@ -24,8 +24,8 @@ const ContactForm = () => {
         try {
           await dispatch(postContact(values));
           resetForm();
-        } catch (err) {
-          console.error(err);
+        } catch (e) {
+          console.error(e);
         } finally {
           setSubmitting(false);
         }

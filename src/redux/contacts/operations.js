@@ -42,7 +42,7 @@ export const patchContact = createAsyncThunk(
   }
 );
 
-export const delContact = createAsyncThunk(
+export const removeContact = createAsyncThunk(
   "contacts/delContact",
   async (id, thunkAPI) => {
     try {

@@ -21,7 +21,7 @@ const contactsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.items.push(...action.payload);
+        state.items.push(action.payload);
       })
       .addCase(postContact.fulfilled, (state, action) => {
         state.items.push(action.payload);

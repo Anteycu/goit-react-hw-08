@@ -16,7 +16,7 @@ export const register = createAsyncThunk(
       setAuthToken(res.data.token);
       return res.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
@@ -29,7 +29,7 @@ export const login = createAsyncThunk(
       setAuthToken(res.data.token);
       return res.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
@@ -39,7 +39,7 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     await signout();
     clearAuthToken();
   } catch (e) {
-    return thunkAPI.rejectWithValue(e);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
 
@@ -48,6 +48,6 @@ export const refresh = createAsyncThunk("auth/refresh", async (_, thunkAPI) => {
     const res = await current();
     return res.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
