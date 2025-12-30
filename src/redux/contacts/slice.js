@@ -27,7 +27,7 @@ const contactsSlice = createSlice({
         state.items.push(action.payload);
       })
       .addCase(patchContact.fulfilled, (state, action) => {
-        state.items.map((contact) => {
+        state.items = state.items.map((contact) => {
           const { id, name, number } = action.payload;
           if (contact.id !== id) {
             return contact;
@@ -40,7 +40,9 @@ const contactsSlice = createSlice({
         });
       })
       .addCase(delContact.fulfilled, (state, action) => {
-        state.items.filter((contacts) => contacts.id !== action.payload);
+        state.items = state.items.filter(
+          (contacts) => contacts.id !== action.payload
+        );
       });
   },
 });

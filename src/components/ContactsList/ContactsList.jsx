@@ -10,7 +10,7 @@ const ContactsList = () => {
     <ul className={s.contacts}>
       {filteredContacts(contacts, filter).map(({ id, name, number }) => (
         <li key={id}>
-          <ContactsItem name={name} phone={number} />
+          <ContactsItem name={name} phone={number} id={id} />
         </li>
       ))}
     </ul>
