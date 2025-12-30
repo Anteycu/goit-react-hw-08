@@ -22,8 +22,8 @@ const RegisterForm = () => {
       onSubmit={async (values, { setSubmitting }) => {
         try {
           await dispatch(register(values));
-        } catch (err) {
-          console.error("Signin failed:", err);
+        } catch (e) {
+          console.error("Signin failed:", e);
         } finally {
           setSubmitting(false);
         }

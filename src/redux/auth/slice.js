@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { login, logout, refresh, register } from "./operations";
 
 const initialState = {
   user: {
@@ -13,45 +14,37 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
-  reducers: {
-    loginFulfilled: (state, action) => {
-      const { user, token } = action.payload;
-      state.user = user;
-      state.token = token;
-      state.isLoggedIn = true;
-    },
-    registerFulfilled: (state, action) => {
-      const { user, token } = action.payload;
-      state.user = user;
-      state.token = token;
-      state.isLoggedIn = true;
-    },
-    logoutSuccess: (state) => {
-      state.user = { name: null, email: null };
-      state.token = null;
-      state.isLoggedIn = false;
-    },
-    refreshPending: (state) => {
-      state.isRefreshing = true;
-    },
-    refreshSuccess: (state, action) => {
-      state.user = action.payload;
-      state.isLoggedIn = true;
-      state.isRefreshing = false;
-    },
-    refreshRejected: (state) => {
-      state.isRefreshing = false;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(register.fulfilled, (state, action) => {
+        const { user, token } = action.payload;
+        state.user = user;
+        state.token = token;
+        state.isLoggedIn = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        const { user, token } = action.payload;
+        state.user = user;
+        state.token = token;
+        state.isLoggedIn = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isLoggedIn = false;
+      })
+      .addCase(refresh.pending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addCase(refresh.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refresh.rejected, (state) => {
+        state.isRefreshing = false;
+      });
   },
 });
-
-export const {
-  loginFulfilled,
-  registerFulfilled,
-  logoutSuccess,
-  refreshPending,
-  refreshSuccess,
-  refreshRejected,
-} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  delContact,
   fetchContacts,
   patchContact,
   postContact,
+  removeContact,
 } from "./operations";
 
 const initialState = {
@@ -21,7 +21,7 @@ const contactsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.items.push(...action.payload);
+        state.items.push(action.payload);
       })
       .addCase(postContact.fulfilled, (state, action) => {
         state.items.push(action.payload);
@@ -39,7 +39,7 @@ const contactsSlice = createSlice({
           };
         });
       })
-      .addCase(delContact.fulfilled, (state, action) => {
+      .addCase(removeContact.fulfilled, (state, action) => {
         state.items = state.items.filter(
           (contacts) => contacts.id !== action.payload
         );

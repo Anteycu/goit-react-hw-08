@@ -1,40 +1,53 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   signup,
   signin,
   signout,
   setAuthToken,
   clearAuthToken,
+  current,
 } from "../../services/contacts-api";
-import { loginFulfilled, logoutSuccess, registerFulfilled } from "./slice";
 
-export const register = (credentials) => async (dispatch) => {
-  try {
-    const res = await signup(credentials);
-    setAuthToken(res.data.token);
-    dispatch(registerFulfilled(res.data));
-  } catch (err) {
-    console.error(err);
-    throw err;
+export const register = createAsyncThunk(
+  "auth/register",
+  async (credentials, thunkAPI) => {
+    try {
+      const res = await signup(credentials);
+      setAuthToken(res.data.token);
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
-};
+);
 
-export const login = (credentials) => async (dispatch) => {
-  try {
-    const res = await signin(credentials);
-    setAuthToken(res.data.token);
-    dispatch(loginFulfilled(res.data));
-  } catch (err) {
-    console.error(err);
-    throw err;
+export const login = createAsyncThunk(
+  "auth/login",
+  async (credentials, thunkAPI) => {
+    try {
+      const res = await signin(credentials);
+      setAuthToken(res.data.token);
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
-};
+);
 
-export const logout = () => async (dispatch) => {
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
     await signout();
     clearAuthToken();
-    dispatch(logoutSuccess());
-  } catch (err) {
-    console.err(err);
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
   }
-};
+});
+
+export const refresh = createAsyncThunk("auth/refresh", async (_, thunkAPI) => {
+  try {
+    const res = await current();
+    return res.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
