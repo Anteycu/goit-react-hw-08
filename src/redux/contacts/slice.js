@@ -21,7 +21,8 @@ const contactsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+        // state.items.push(action.payload);
+        state.items = action.payload;
       })
       .addCase(postContact.fulfilled, (state, action) => {
         state.items.push(action.payload);
@@ -41,7 +42,7 @@ const contactsSlice = createSlice({
       })
       .addCase(removeContact.fulfilled, (state, action) => {
         state.items = state.items.filter(
-          (contacts) => contacts.id !== action.payload
+          (contacts) => contacts.id !== action.payload.id
         );
       });
   },
